@@ -1,10 +1,19 @@
 <?php
 /**
- * The template for displaying comments.
+ * The template for displaying comments
  *
- * @package Theme Freesia
- * @subpackage Photograph
- * @since Photograph 1.0
+ * This is the template that displays the area of the page that contains both the current comments
+ * and the comment form.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package photos
+ */
+
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
  */
 if ( post_password_required() ) {
 	return;
@@ -12,47 +21,57 @@ if ( post_password_required() ) {
 ?>
 
 <div id="comments" class="comments-area">
-	<?php if ( have_comments() ) : ?>
-	<h2 class="comments-title">
+
 	<?php
-				$comments_number = get_comments_number();
-				if ( '1' === $comments_number ) {
-					/* translators: %s: post title */
-					printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'photograph' ), get_the_title() );
-				} else {
-					printf(
-						/* translators: 1: number of comments, 2: post title */
-						_nx(
-							'%1$s Reply to &ldquo;%2$s&rdquo;',
-							'%1$s Replies to &ldquo;%2$s&rdquo;',
-							$comments_number,
-							'comments title',
-							'photograph'
-						),
-						number_format_i18n( $comments_number ),
-						get_the_title()
-					);
-				}
+	// You can start editing here -- including this comment!
+	if ( have_comments() ) : ?>
+		<h2 class="comments-title">
+			<?php
+			$photos_comment_count = get_comments_number();
+			if ( '1' === $photos_comment_count ) {
+				printf(
+					/* translators: 1: title. */
+					esc_html__( 'One reply to &ldquo;%1$s&rdquo;', 'photos' ),
+					'<span>' . get_the_title() . '</span>'
+				);
+			} else {
+				printf( // WPCS: XSS OK.
+					/* translators: 1: comment count number, 2: title. */
+					esc_html( _nx( '%1$s reply to &ldquo;%2$s&rdquo;', '%1$s replies to &ldquo;%2$s&rdquo;', $photos_comment_count, 'comments title', 'photos' ) ),
+					number_format_i18n( $photos_comment_count ),
+					'<span>' . get_the_title() . '</span>'
+				);
+			}
 			?>
-	</h2>
-	<ol class="comment-list">
-	<?php
-		wp_list_comments( array(
-			'style'       => 'ol',
-			'short_ping'  => true,
-			'avatar_size' => 56,
+		</h2><!-- .comments-title -->
+
+		<ol class="comment-list">
+			<?php
+			wp_list_comments( array(
+				'avatar_size'	=> 46,
+				'short_ping' 	=> true,
+				'style'      	=> 'ol',
+			) );
+			?>
+		</ol><!-- .comment-list -->
+
+		<?php
+		the_comments_pagination( array(
+			'prev_text' => photos_get_svg( array( 'icon' => 'previous' ) ) . '<span class="screen-reader-text">' . esc_html__( 'Previous', 'photos' ) . '</span>',
+			'next_text' => '<span class="screen-reader-text">' . esc_html__( 'Next', 'photos' ) . '</span>' . photos_get_svg( array( 'icon' => 'next' ) ),
 		) );
-	?>
-	</ol> <!-- .comment-list -->
-	<?php photograph_comment_nav(); ?>
-	<?php endif; // have_comments() ?>
-	<?php
+
+
 		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
+		if ( ! comments_open() ) :
+			?>
+			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'photos' ); ?></p>
+			<?php
+		endif;
+
+	endif; // Check for have_comments().
+
+	comment_form();
 	?>
-	<p class="no-comments">
-	<?php esc_html_e( 'Comments are closed.', 'photograph' ); ?>
-	</p>
-	<?php endif; ?>
-	<?php comment_form(); ?>
-</div> <!-- .comments-area -->
+
+</div><!-- #comments -->

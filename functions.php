@@ -1,295 +1,253 @@
 <?php
 /**
- * Display all photograph functions and definitions
+ * Photos functions and definitions
  *
- * @package Theme Freesia
- * @subpackage Photograph
- * @since Photograph 1.0
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package photos
  */
 
-/************************************************************************************************/
-if ( ! function_exists( 'photograph_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
-function photograph_setup() {
+if ( ! function_exists( 'photos_setup' ) ) :
 	/**
-	 * Set the content width based on the theme's design and stylesheet.
-	 */
-	global $content_width;
-	if ( ! isset( $content_width ) ) {
-			$content_width=1920; // if gallery used in home page with default template, this will display in full width
-	}
-
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
-	add_theme_support('post-thumbnails');
-
-	/*
-	 * Let WordPress manage the document title.
-	 */
-	add_theme_support( 'title-tag' );
-
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
+	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
-	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
+	 * Note that this function is hooked into the after_setup_theme hook, which
+	 * runs before the init hook. The init hook is too late for some features, such
+	 * as indicating support for post thumbnails.
 	 */
-	add_theme_support( 'post-thumbnails' );
+	function photos_setup() {
+		/*
+		 * Make theme available for translation.
+		 * Translations can be filed in the /languages/ directory.
+		 * If you're building a theme based on Photos, use a find and replace
+		 * to change 'photos' to the name of your theme in all the template files.
+		 */
+		load_theme_textdomain( 'photos', get_template_directory() . '/languages' );
 
-	register_nav_menus( array(
-		'primary' => __( 'Main Menu', 'photograph' ),
-		'side-nav-menu' => __( 'Side Menu', 'photograph' ),
-		'social-link'  => __( 'Add Social Icons Only', 'photograph' ),
-	) );
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
 
+		/*
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
+		 */
+		add_theme_support( 'title-tag' );
 
-	// Add support for responsive embeds.
-	add_theme_support( 'responsive-embeds' );
+		/*
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		 */
+		add_theme_support( 'post-thumbnails' );
+		set_post_thumbnail_size( 320, 320, true );
 
-	/* 
-	* Enable support for custom logo. 
-	*
-	*/ 
-	add_theme_support( 'custom-logo', array(
-		'flex-width' => true, 
-		'flex-height' => true,
-	) );
+		// Home page thumbnails
+		// Double-sized for retina
+		add_image_size( 'photos-grid-thumb', 640, 640, true );
+		add_image_size( 'photos-featured', 2040, 9999, false );
 
-	add_theme_support( 'gutenberg', array(
-			'colors' => array(
-				'#fd513b',
+		// This theme uses wp_nav_menu() in one location.
+		register_nav_menu( 'menu-1', esc_html__( 'Primary', 'photos' ) );
+
+		/*
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
+		add_theme_support( 'html5', array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+		) );
+
+		// Set up the WordPress core custom background feature.
+		add_theme_support( 'custom-background', apply_filters( 'photos_custom_background_args', array(
+			'default-color' => 'ffffff',
+			'default-image' => '',
+		) ) );
+
+		// Add theme support for selective refresh for widgets.
+		add_theme_support( 'customize-selective-refresh-widgets' );
+
+		/**
+		 * Add support for core custom logo.
+		 *
+		 * @link https://codex.wordpress.org/Theme_Logo
+		 */
+		add_theme_support( 'custom-logo', array(
+			'height'      => 360,
+			'width'       => 720,
+			'flex-width'  => true,
+			'flex-height' => true,
+			'header-text' => array(
+				'site-title',
+				'site-description',
 			),
 		) );
-	add_theme_support( 'align-wide' );
 
-	//Indicate widget sidebars can use selective refresh in the Customizer. 
-	add_theme_support( 'customize-selective-refresh-widgets' );
+		// Custom header support
+		add_theme_support( 'custom-header', apply_filters( 'photos_custom_header_args', array(
+			'default-image'          => '',
+			'default-text-color'     => '111111',
+			'width'                  => 1920,
+			'height'                 => 400,
+			'flex-height'            => true,
+			'flex-width'             => true,
+		) ) );
 
-	/*
-	 * Switch default core markup for comment form, and comments
-	 * to output valid HTML5.
-	 */
-	add_theme_support( 'html5', array(
-		'comment-form', 'comment-list', 'gallery', 'caption',
-	) );
+		/* Gutenberg! */
+		add_theme_support( 'align-wide' );
 
-	add_image_size( 'photograph-popular-post', 75, 75, true );
+		// Add support for responsive embeds.
+		add_theme_support( 'responsive-embeds' );
 
-	/**
-	 * Add support for the Aside Post Formats
-	 */
-	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio', 'chat' ) );
+	    add_theme_support( 'editor-color-palette', array(
+			array(
+				'name' => esc_html__( 'red', 'photos' ),
+				'slug' => 'red',
+				'color' => '#d63031',
+			),
+			array(
+				'name' => esc_html__( 'charcoal', 'photos' ),
+				'slug' => 'charcoal',
+				'color' => '#111',
+			),
+			array(
+				'name' => esc_html__( 'very light gray', 'photos' ),
+				'slug' => 'very-light-gray',
+				'color' => '#f0f0f0',
+			),
+			array(
+				'name' => esc_html__( 'very dark gray', 'photos' ),
+				'slug' => 'very-dark-gray',
+				'color' => '#404040',
+			),
+			array(
+				'name' => esc_html__( 'medium gray', 'photos' ),
+				'slug' => 'medium-gray',
+				'color' => '#606060',
+			)
+		) );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'photograph_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
-
-	add_editor_style( array( 'css/editor-style.css') );
+	}
+endif;
+add_action( 'after_setup_theme', 'photos_setup' );
 
 /**
- * Load WooCommerce compatibility files.
+ * Set posts per page on theme switch
  */
-	
-require get_template_directory() . '/woocommerce/functions.php';
-
-
+function photos_setup_options() {
+	// Set the number of posts to display per page
+	update_option( 'posts_per_page', 12 );
 }
-endif; // photograph_setup
-add_action( 'after_setup_theme', 'photograph_setup' );
+add_action( 'after_switch_theme', 'photos_setup_options' );
 
-/***************************************************************************************/
-function photograph_content_width() {
-	if ( is_page_template( 'page-templates/gallery-template.php' ) || is_attachment() ) {
-		global $content_width;
-		$content_width = 1920;
+/**
+ * Set the content width in pixels, based on the theme's design and stylesheet.
+ *
+ * Priority 0 to make it available to lower priority callbacks.
+ *
+ * @global int $content_width
+ */
+function photos_content_width() {
+	// This variable is intended to be overruled from themes.
+	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$GLOBALS['content_width'] = apply_filters( 'photos_content_width', 640 );
+}
+add_action( 'after_setup_theme', 'photos_content_width', 0 );
+
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
+function photos_widgets_init() {
+	register_sidebar( array(
+		'name'          => esc_html__( 'Footer', 'photos' ),
+		'id'            => 'sidebar-1',
+		'description'   => esc_html__( 'These widgets will be displayed at the bottom of each page.', 'photos' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+}
+add_action( 'widgets_init', 'photos_widgets_init' );
+
+/**
+ * Enqueue scripts and styles.
+ */
+function photos_scripts() {
+	// Main stylesheet
+	wp_enqueue_style( 'photos-style', get_stylesheet_uri() );
+
+	// Gutenberg styles
+	wp_enqueue_style( 'photos-blocks', get_template_directory_uri() . '/blocks.css' );
+
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
 	}
+
+	wp_enqueue_script( 'photos-global', get_theme_file_uri( '/js/global.js' ), array( 'jquery' ), '20180724', true );
+
+	wp_enqueue_script( 'photos-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+
+	$photos_l10n = array();
+
+	wp_enqueue_script( 'photos-navigation', get_theme_file_uri( '/js/navigation.js' ), array( 'jquery' ), '1.0', true );
+	$photos_l10n['expand']   = esc_attr__( 'Expand child menu', 'photos' );
+	$photos_l10n['collapse'] = esc_attr__( 'Collapse child menu', 'photos' );
+	$photos_l10n['icon']     = photos_get_svg( array( 'icon' => 'expand', 'fallback' => true ) );
+
+	wp_localize_script( 'photos-navigation', 'photosScreenReaderText', $photos_l10n );
+
 }
-add_action( 'template_redirect', 'photograph_content_width' );
+add_action( 'wp_enqueue_scripts', 'photos_scripts' );
 
-/***************************************************************************************/
-if(!function_exists('photograph_get_theme_options')):
-	function photograph_get_theme_options() {
-	    return wp_parse_args(  get_option( 'photograph_theme_options', array() ), photograph_get_option_defaults_values() );
-	}
-endif;
-
-/***************************************************************************************/
-require get_template_directory() . '/inc/customizer/photograph-default-values.php';
-require get_template_directory() . '/inc/settings/photograph-functions.php';
-require get_template_directory() . '/inc/settings/photograph-common-functions.php';
-
-if (!is_child_theme()){
-	require get_template_directory() . '/inc/welcome-notice.php';
+/**
+ * Gutenberg Editor Styles
+ */
+function photos_editor_styles() {
+	wp_enqueue_style( 'photos-editor-block-style', get_template_directory_uri() . '/editor-blocks.css' );
 }
+add_action( 'enqueue_block_editor_assets', 'photos_editor_styles' );
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Functions which enhance the theme by hooking into WordPress.
+ */
+require get_template_directory() . '/inc/template-functions.php';
+
+/**
+ * Customizer additions.
+ */
+require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Logo Resizer: Bringing logo resizing to the Customizer.
+ */
+require get_template_directory() . '/inc/logo-resizer.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * SVG icons functions and filters.
+ */
+require get_template_directory() . '/inc/icon-functions.php';
 
 
-/************************ Photograph Sidebar/ Widgets  *****************************/
-require get_template_directory() . '/inc/widgets/widgets-functions/register-widgets.php';
-require get_template_directory() . '/inc/widgets/widgets-functions/popular-posts.php';
 
-/************************ Photograph Customizer  *****************************/
-require get_template_directory() . '/inc/customizer/functions/sanitize-functions.php';
-require get_template_directory() . '/inc/customizer/functions/register-panel.php';
-
-function photograph_customize_register( $wp_customize ) {
-		if(!class_exists('Photograph_Plus_Features')  && !class_exists('Webart_Customize_upgrade') && !class_exists('Wedding_photos_Customize_upgrade'))  {
-		class Photograph_Customize_upgrade extends WP_Customize_Control {
-			public function render_content() { ?>
-				<a title="<?php esc_attr_e( 'Review Us', 'photograph' ); ?>" href="<?php echo esc_url( 'https://wordpress.org/support/view/theme-reviews/photograph/' ); ?>" target="_blank" id="about_photograph">
-				<?php esc_html_e( 'Review Us', 'photograph' ); ?>
-				</a><br/>
-				<a href="<?php echo esc_url( 'https://themefreesia.com/theme-instruction/photograph/' ); ?>" title="<?php esc_attr_e( 'Theme Instructions', 'photograph' ); ?>" target="_blank" id="about_photograph">
-				<?php esc_html_e( 'Theme Instructions', 'photograph' ); ?>
-				</a><br/>
-				<a href="<?php echo esc_url( 'https://tickets.themefreesia.com/' ); ?>" title="<?php esc_attr_e( 'Support Tickets', 'photograph' ); ?>" target="_blank" id="about_photograph">
-				<?php esc_html_e( 'Forum', 'photograph' ); ?>
-				</a><br/>
-			<?php
-			}
-		}
-		$wp_customize->add_section('photograph_upgrade_links', array(
-			'title'					=> __('Important Links', 'photograph'),
-			'priority'				=> 1000,
-		));
-		$wp_customize->add_setting( 'photograph_upgrade_links', array(
-			'default'				=> false,
-			'capability'			=> 'edit_theme_options',
-			'sanitize_callback'	=> 'wp_filter_nohtml_kses',
-		));
-		$wp_customize->add_control(
-			new Photograph_Customize_upgrade(
-			$wp_customize,
-			'photograph_upgrade_links',
-				array(
-					'section'				=> 'photograph_upgrade_links',
-					'settings'				=> 'photograph_upgrade_links',
-				)
-			)
-		);
-	}	
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-		
-	if ( isset( $wp_customize->selective_refresh ) ) {
-		$wp_customize->selective_refresh->add_partial( 'blogname', array(
-			'selector' => '.site-title a',
-			'container_inclusive' => false,
-			'render_callback' => 'photograph_customize_partial_blogname',
-		) );
-		$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
-			'selector' => '.site-description',
-			'container_inclusive' => false,
-			'render_callback' => 'photograph_customize_partial_blogdescription',
-		) );
-	}
-	
-	require get_template_directory() . '/inc/customizer/functions/design-options.php';
-	require get_template_directory() . '/inc/customizer/functions/theme-options.php';
-	require get_template_directory() . '/inc/customizer/functions/color-options.php' ;
-	require get_template_directory() . '/inc/customizer/functions/featured-content-customizer.php' ;
-	require get_template_directory() . '/inc/customizer/functions/frontpage-features.php' ;
-}
-if(!class_exists('Photograph_Plus_Features')){
-	if(!function_exists('webart_customize_register') && !function_exists('wedding_photos_customize_register')){
-		// Add Upgrade to Plus Button.
-		require_once( trailingslashit( get_template_directory() ) . 'inc/upgrade-plus/class-customize.php' );
-	}
-}
-
-/** 
-* Render the site title for the selective refresh partial. 
-* @see photograph_customize_register() 
-* @return void 
-*/ 
-function photograph_customize_partial_blogname() { 
-bloginfo( 'name' ); 
-} 
-
-/** 
-* Render the site tagline for the selective refresh partial. 
-* @see photograph_customize_register() 
-* @return void 
-*/ 
-function photograph_customize_partial_blogdescription() { 
-bloginfo( 'description' ); 
-}
-add_action( 'customize_register', 'photograph_customize_register' );
-/******************* Photograph Header Display *************************/
-function photograph_header_display(){
-	$photograph_settings = photograph_get_theme_options();
-	$header_display = $photograph_settings['photograph_header_display'];
-$photograph_header_display = $photograph_settings['photograph_header_display'];
-if ($photograph_header_display == 'header_logo' || $photograph_header_display == 'header_text' || $photograph_header_display == 'show_both' || is_active_sidebar( 'photograph_header_banner' )) {
-
-		if ($header_display == 'header_logo' || $header_display == 'header_text' || $header_display == 'show_both')	{
-			echo '<div id="site-branding">';
-			if($header_display != 'header_text'){
-				photograph_the_custom_logo();
-			}
-			echo '<div id="site-detail">';
-				if (is_home() || is_front_page()){ ?>
-				<h1 id="site-title"> <?php }else{?> <h2 id="site-title"> <?php } ?>
-				<a href="<?php echo esc_url(home_url('/'));?>" title="<?php echo esc_html(get_bloginfo('name', 'display'));?>" rel="home"> <?php bloginfo('name');?> </a>
-				<?php if(is_home() || is_front_page()){ ?>
-				</h1>  <!-- end .site-title -->
-				<?php } else { ?> </h2> <!-- end .site-title --> <?php }
-
-				$site_description = get_bloginfo( 'description', 'display' );
-				if ($site_description){?>
-					<div id="site-description"> <?php bloginfo('description');?> </div> <!-- end #site-description -->
-			
-		<?php }
-		echo '</div></div>'; // end #site-branding
-		}
-			if( is_active_sidebar( 'photograph_header_banner' )){ ?>
-				<div class="advertisement-box">
-					<?php dynamic_sidebar( 'photograph_header_banner' ); ?>
-				</div> <!-- end .advertisement-box -->
-			<?php } 
-		}
-}
-/************** Site Branding *************************************/
-add_action('photograph_site_branding','photograph_header_display');
-
-if ( ! function_exists( 'photograph_the_custom_logo' ) ) : 
- 	/** 
- 	 * Displays the optional custom logo. 
- 	 * Does nothing if the custom logo is not available. 
- 	 */ 
- 	function photograph_the_custom_logo() { 
-		if ( function_exists( 'the_custom_logo' ) ) { 
-			the_custom_logo(); 
-		}
- 	} 
-endif;
-
-/************** Site Branding for sticky header and side menu sidebar *************************************/
-add_action('photograph_new_site_branding','photograph_stite_branding_for_stickyheader_sidesidebar');
-
-	function photograph_stite_branding_for_stickyheader_sidesidebar(){ 
-		$photograph_settings = photograph_get_theme_options(); ?>
-		<div id="site-branding">
-			<?php	
-			$photograph_header_display = $photograph_settings['photograph_header_display'];
-			if ($photograph_header_display == 'header_logo' || $photograph_header_display == 'show_both') {
-				photograph_the_custom_logo(); 
-			}
-
-			if ($photograph_header_display == 'header_text' || $photograph_header_display == 'show_both') { ?>
-			<div id="site-detail">
-				<div id="site-title">
-					<a href="<?php echo esc_url(home_url('/'));?>" title="<?php echo esc_attr(get_bloginfo('name', 'display'));?>" rel="home"> <?php bloginfo('name');?> </a>
-				</div>
-				<!-- end #site-title -->
-				<div id="site-description"><?php bloginfo('description');?></div> <!-- end #site-description -->
-			</div><!-- end #site-detail -->
-			<?php } ?>
-		</div> <!-- end #site-branding -->
-	<?php }
+// updater for WordPress.com themes
+if ( is_admin() )
+	include dirname( __FILE__ ) . '/inc/updater.php';

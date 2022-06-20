@@ -1,243 +1,103 @@
-=== Photograph ===
-Contributors: themefreesia
-Tags: threaded-comments, right-sidebar, custom-background, custom-colors, custom-header, custom-logo, custom-menu, editor-style, featured-images, flexible-header, post-formats, sticky-post, theme-options, translation-ready, photography, blog, portfolio
-Requires at least: 5.0
-Tested up to: 6.0
-Requires PHP: 5.6
-Stable tag: 1.2.7
-License: GNU General Public License version 3.0
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+=== Photos ===
 
-Description: Photograph is a WordPress theme exclusively built for photographer, blogger, portfolio, photography agency or photo studio websites.
+Contributors: automattic
+Requires at least: 4.6
+Tested up to: 4.9.8
+Stable tag: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-=================================================================================
+Tags: custom-background, custom-header, custom-logo, custom-menu, featured-images, footer-widgets, grid-layout, sticky-post, threaded-comments, translation-ready, blog, photography
 
-== Frequently Asked Questions ==
-= How many menu does Photograph theme support? =
-There is three Menu registered in this theme. i.e. Main Menu,  Side Menu and Add Social Icons Only
+== Description ==
 
-= Where can i get instruction about theme? = 
-For detail instructions visit https://themefreesia.com/theme-instruction/photograph/
-
-= Is theme compatible with wpml? =
-wpml-config.xml is used to support multilangual plugins such and wpml, polylang.
+Photos is a single-column blogging theme that showcases your photos in a grid format.
 
 == Installation ==
-1. Primary: == Installation ==
-	- In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
-	- Type in Photograph in the search form and press the 'Enter' key on your keyboard.
-	- Click on the 'Activate' button to use your new theme right away.
-	- Go to https://themefreesia.com/theme-instruction/photograph/ for a guide on how to customize this theme.
-	- Navigate to Appearance > Customize in your admin panel and customize to taste.
 
-2. Alternate: Unzip the template file (photograph.zip) that you have downloaded. Via FTP, upload the whole folder (photograph) to your server and place it inside the http://yourdomain.com/wp-content/themes/folder(photograph). Do not change directory name. The template files should thus be here now: http://yourdomain.com/wp-content/themes/photograph/index.php (for example).
-	- Log into your WP admin panel and click on the Appearance -> Theme tab. Now click on the Photograph theme to activate it.
-	- Want to enjoy Photograph feature. Go to  Dashboard -> Appearance -> Customize and play with Photograph Options
-	- The theme is offered free of charge. If someone asked money for it, someone just tricked you.
+1. In your admin panel, go to Appearance > Themes and click the Add New button.
+2. Click Upload Theme and Choose File, then select the theme's .zip file. Click Install Now.
+3. Click Activate to use your new theme right away.
 
-== Copyright ==
-	Photograph WordPress Theme, Copyright 2016 themefreesia
-	Photograph is distributed under the terms of the GNU GPL
+== Credits ==
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 2 of the License, or
-	(at your option) any later version.
+* Based on Underscores http://underscores.me/, (C) 2012-2018 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+* normalize.css http://necolas.github.io/normalize.css/, (C) 2012-2018 Nicolas Gallagher and Jonathan Neal, [MIT](http://opensource.org/licenses/MIT)
+* Images by Pexels, [CC0](https://www.pexels.com/creative-commons-images/)
+** https://www.pexels.com/photo/bay-beach-blue-cliff-373409/
+** https://www.pexels.com/photo/bay-beach-daylight-high-angle-shot-274060/
+** https://www.pexels.com/photo/panoramic-view-of-sea-against-blue-sky-248771/
+** https://www.pexels.com/photo/rear-view-of-man-on-mountain-road-against-sky-258045/
+** https://www.pexels.com/photo/architecture-booth-buildings-bus-374815/
+** https://www.pexels.com/photo/hallway-between-tree-at-daytime-163585/
+** https://www.pexels.com/photo/agriculture-beautiful-countryside-cropland-461818/
+** https://www.pexels.com/photo/agriculture-asia-cat-china-235648/
+** https://www.pexels.com/photo/adventure-beautiful-boardwalk-bridge-235734/
+** https://www.pexels.com/photo/clouds-flight-flying-plane-6881/
+** https://www.pexels.com/photo/cafe-camera-classic-close-up-413960/
+** https://www.pexels.com/photo/pink-teal-yellow-multi-color-please-leave-nothing-but-your-feet-road-signage-164287/
 
-== Resources ==
-	Photograph bundles the following third-party resources:
+== Changelog ==
 
-	-Font Awesome
-		http://fontawesome.io/license/
-		Font Licensed: License: SIL OFL 1.1
-		Code License: MIT License
+= 22 November 2018 =
+* Minor fixes to Gutenberg implementation, including: * Add support for responsive embeds, and styles to makes sure wide and full videos fill available space. * Update button style selectors, and custom colour selectors, to make sure buttons have fallback when they have colour classes from previous themes. * Centre text, bullets in centred widgets, to match editor styles. * Update selector for links in editor. * Align text left/right for full-aligned latest comments widget. * Add a max-content width for the blocks in the editor. * Remove border radius from code block in editor.
 
-	-JS Files
-		jquery.sticky.js: http://stickyjs.com/
-		sticky-settings.js:
-		Licensed: https://github.com/garand/sticky/blob/master/LICENSE.md
+= 16 November 2018 =
+* Improved Guteneberg support and a ton of bug
 
-		jquery.fancybox.js:
-		fancybox-settings.js:
-		Licensed: Licensed GPLv3 license for all open source applications
-		https://github.com/fancyapps/fancybox
+= 21 September 2018 =
+* Change margins for Infinite Scroll Older Posts button to better center it between the content and the footer
 
-		jarallax.js:
-		jarallax-video.js:
-		jarallax-settings.js:
-		Licensed: Licensed under the MIT license
-		https://github.com/nk-o/jarallax/blob/master/LICENSE
+= 20 September 2018 =
+* Fix for Firefox completely ignoring the break-inside property for columns by setting widgets to be a inline-block with a fixed width on desktop
+* Changed default styling on related post images to remove bottom margins from desktop screen sizes, create a colored box for posts without a featured image, update color annotations, and improve responsiveness on mobile
+* Increase related posts image size
 
-		wow.js:
-		wow-settings.js:
-		Licensed: Copyright (c) 2016 Thomas Grainger; Licensed MIT
-		https://github.com/graingert/WOW/blob/master/LICENSE
+= 18 September 2018 =
+* Update mobile navigation button to handle situations where the actionbar does not exist
+* Make sure widgets take up the full column width (removed attribute
+* Increase the custom header image from 200 to 400px tall.
 
-		HTML5.js:  HTML5-Shiv is Licensed under the MIT and GPL licenses
-		https://github.com/afarkas/html5shiv
+= 14 September 2018 =
+* Moved mobile navigation button from right to center, and updated some styles for comment box on wp.com
 
-		jQuery.flexslider.js:
-		flexslider-setting.js:
-		JQuery Cylcle all is Licensed under GNU GENERAL PUBLIC LICENSE
-		https://github.com/woothemes/FlexSlider/blob/master/LICENSE.md
+= 13 September 2018 =
+* Update Headstart to remove placeholder widgets, and updated posts-per-page to match the theme default
+* Adding GlotPress project
+* Added headstart annotations
+* Update theme screenshot, description, and readme file
+* Moved 'posts_per_page' setting so it wouldn't re-assert the default every time the theme was loaded; users can now change (and save) the setting successfully.
 
-		navigation.js
-		Based on Underscores http://underscores.me/, (C) 2012-2017 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+= 12 September 2018 =
+* Updating to latest code from GitHub
 
-		imageloaded.pkgd.js:
-		Licensed: imagesLoaded is released under the MIT License
-		https://github.com/desandro/imagesloaded#mit-license
+= 1 September 2018 =
+* Update code to match GitHub repo
+* Remove un-necessary escaping call that was breaking the search form.
 
-		isotope.pkgd.js:
-		isotope-setting.js:
-		Licensed: Licensed GPLv3 license
-		https://github.com/metafizzy/isotope#open-source-license
+= 31 August 2018 =
+* Remove README.md
+* Updating code to match GitHub repo
 
-		skip-link-focus-fix.js
-		Based on Underscores http://underscores.me/, (C) 2012-2017 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+= 30 August 2018 =
+* Added font-family to post links so they can be used with font annotations
+* Update to match latest code on GitHub repo
+* Update to match latest code in GitHub repo
 
-	-Images
-		Screenshot Images:
-		https://pixabay.com/en/young-woman-background-grown-up-3313019/
-		https://pixabay.com/en/woman-lovely-young-nice-girl-3136667/
-		https://pixabay.com/en/woman-fashion-young-sexy-nice-3083453/
-		https://www.pexels.com/photo/photo-of-woman-holding-chin-954559/
-		https://www.pexels.com/photo/white-unicorn-head-costume-908686/
-		https://pixabay.com/en/girl-young-woman-brunette-sit-1860925/
-		https://pixabay.com/en/women-s-model-young-model-beautiful-2349047/
+= 21 August 2018 =
+* Bringing theme inline with code on GitHub
 
-		Licensed: CC0 License
+= 28 July 2018 =
+* Update to latest from GitHub
+* Update to latest from GitHub (again)
 
-	- Google Fonts - Apache License, version 2.0
+= 27 July 2018 =
+* Updated to match latest version on GitHub
 
-	- TRT Customize Pro -
-		https://github.com/justintadlock/trt-customizer-pro#copyright-and-license
-		Copyright: Justin Tadlock.
-		Licensed: GNU GPL, version 2 or later.
+= 25 July 2018 =
+* first commit
 
+== Credits ==
 
-All the theme files and other un-specified scripts (customizer-custom-scripts.js, photograph-main.js) are licensed under GNU General Public License Version 3 or later and can be used or modify for both commercial and personal use.
-
-=================================================================================
-
-== Photograph Info ==
-
-	- About Theme -
-	https://themefreesia.com/themes/photograph
-
-	- Theme Demo -
-	https://demo.themefreesia.com/photograph
-
-	- Theme Instruction -
-	https://themefreesia.com/theme-instruction/photograph
-
-	- Free Support -
-	https://tickets.themefreesia.com
-
-=================================================================================
-
-== CHANGE LOG ==
-= 1.2.7 =
-	- Fix - Issue fixed for multilangual
-	- New - fontawesome icons added
-	
-= 1.2.6 =
-	- Fix - Issue fixed while disabling main menu, side menu not displayed
-		  - Masonry layout issue fixed
-	- New - breadcrumb added for woocommerce page
-
-= 1.2.5 =
-	- Fix - Escaping issue fixed
-		  - Sub menu touch feature added on mobile screen and accessibility fixed 
-
-= 1.2.4 =
-	- Fix - WooCommerce search button issue fixed
-			- div issue on archive page fixed
-			- Style css viewport issue fixed
-	- Update - flexslider js updated
-				- admin css removed
-				- required php file version added
-
-= 1.2.3 =
-	- Fix - Footer not display issue fixed
-
-= 1.2.2 =
-	- Fix - Accessibility issue fixed
-
-= 1.2.1 =
-	- New - skip link focus added
-	- Update - css updated
-	- Fix - Header aside and search form display fixed
-
-= 1.2.0 =
-	- New - Accessibility added
-
-= 1.1.9 =
-	- New - Gutenberg responsive embeds added
-			- Adding new function wp_body_open() and backward Compatibility
-			- Welcome notice added
-
-= 1.1.8 =
-	- Fix - IE blog page feature image issue fixed
-			- escaping fixed
-
-= 1.1.7 =
-	- Fix - WooCommerce Archive page width issue fixed
-
-= 1.1.6 =
-	- Update - Requires PHP field added
-				- Missing License added
-				- CSS file updated
-	- Fix - Slider issue with slide fixed
-
-= 1.1.5 =
-	- Fix - site branding for sticky header fixed
-
-= 1.1.4 =
-	- Fix - Missing div fixed
-
-= 1.1.3 =
-	- Fix - Site description issue fixed
-
-= 1.1.2 =
-	- Fix - SEO issue fixed on displaying Logo Only
-			- Single & Page title SEO fixed
-
-= 1.1.1 =
-	- New - Disable fancybox options added
-
-= 1.1.0 =
-	- Fix - CSS Updated
-			- Color feature compatible with child theme
-
-= 1.0.9 =
-	- Fix - Compatible with Wedding Photos
-	- New - Disable volume button added
-
-= 1.0.8 =
-	- Fix - Updated
-
-= 1.0.7 =
-	- Fix - Updated
-
-= 1.0.6 =
-	- Fix - esc_attr to esc_html
-
-= 1.0.5 =
-	- New - Privacy Policy page added
-
-= 1.0.4 =
-	- Update - Code cleaned
-
-= 1.0.3 =
-	- Update - page builder css updated
-	- Fix - Missing escpage fixed
-
-= 1.0.2 =
-	- Update - Condition checked for header image
-
-= 1.0.1 =
-	- Update - Some minor issue fixed
-
-= 1.0 =
-	- Initial Release
+* Based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+* normalize.css https://necolas.github.io/normalize.css/, (C) 2012-2016 Nicolas Gallagher and Jonathan Neal, [MIT](https://opensource.org/licenses/MIT)

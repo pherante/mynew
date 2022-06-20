@@ -1,38 +1,25 @@
 <?php
 /**
- * The sidebar containing the main Sidebar area.
+ * The sidebar containing the main widget area
  *
- * @package Theme Freesia
- * @subpackage Photograph
- * @since Photograph 1.0
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package photos
  */
-	$photograph_settings = photograph_get_theme_options();
-	if( $post ) {
-		$layout = get_post_meta( get_queried_object_id(), 'photograph_sidebarlayout', true );
-	}
-	if( empty( $layout ) || is_archive() || is_search() || is_home() ) {
-		$layout = 'default';
-	}
 
-if( 'default' == $layout ) { //Settings from customizer
-	if(($photograph_settings['photograph_sidebar_layout_options'] != 'nosidebar') && ($photograph_settings['photograph_sidebar_layout_options'] != 'fullwidth')){ ?>
+if (
+	! is_active_sidebar( 'sidebar-1' ) &&
+	! is_active_sidebar( 'sidebar-2' ) &&
+	! is_active_sidebar( 'sidebar-3' )
+) {
+	return;
+}
+?>
 
 <aside id="secondary" class="widget-area">
-<?php }
-}else{ // for page/ post
-		if(($layout != 'no-sidebar') && ($layout != 'full-width')){ ?>
-<aside id="secondary" class="widget-area">
-  <?php }
-	}?>
-  <?php 
-	if( 'default' == $layout ) { //Settings from customizer
-		if(($photograph_settings['photograph_sidebar_layout_options'] != 'nosidebar') && ($photograph_settings['photograph_sidebar_layout_options'] != 'fullwidth')): ?>
-  <?php dynamic_sidebar( 'photograph_main_sidebar' ); ?>
-</aside><!-- end #secondary -->
-<?php endif;
-	}else{ // for page/post
-		if(($layout != 'no-sidebar') && ($layout != 'full-width')){
-			dynamic_sidebar( 'photograph_main_sidebar' );
-			echo '</aside><!-- end #secondary -->';
-		}
-	}
+	<div class="container">
+		<?php dynamic_sidebar( 'sidebar-1' ); ?>
+		<?php dynamic_sidebar( 'sidebar-2' ); ?>
+		<?php dynamic_sidebar( 'sidebar-3' ); ?>
+	</div>
+</aside><!-- #secondary -->
